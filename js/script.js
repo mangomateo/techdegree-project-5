@@ -10,7 +10,7 @@ async function getEmployeeData(url) {
     console.log(employeesJSON.results);
 
     generateEmployeeCards(employeesJSON.results);
-    displayModal(employeesJSON.results);
+    displayModalConstants();
     document.querySelector('.modal-container').style.display = 'none';
     
 }
@@ -27,7 +27,7 @@ const generateEmployeeCards = data => {
     
     for (let i = 0; i < data.length; i++) {
         employeeCardHTML += `
-        <div class="card">
+        <div class="card" data-index=${[i]}>
             <div class="card-img-container">
                 <img class="card-img" src="${ data[i].picture.large }" alt="profile picture">
             </div>
@@ -45,28 +45,39 @@ const generateEmployeeCards = data => {
 
 
 /**
- * Generate HTML for modal to display more employee info
+ * Generate HTML for modal constants to display more employee info
+ * Add event listeners to show/hide modal on click
  **/
- const displayModal = data => {
+ const displayModalConstants = () => {
      let modalHTML = `
      <div class="modal-container">
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
-                <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-                <h3 id="name" class="modal-name cap">name</h3>
-                <p class="modal-text">email</p>
-                <p class="modal-text cap">city</p>
-                <hr>
-                <p class="modal-text">(555) 555-5555</p>
-                <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                <p class="modal-text">Birthday: 10/21/2015</p>
+            <!-- INFO GOES HERE -->
             </div>
         </div>
     </div>`;
 
     gallery.insertAdjacentHTML('afterend', modalHTML);
-    console.log(data);
+
+    const modal = document.querySelector('.modal-container');
+    const closeBtn = document.querySelector('#modal-close-btn');
+
+    gallery.addEventListener('click', e => {
+        e.target.className.includes('card') ?
+            modal.style.display = 'block' :
+            modal.style.display = 'none';
+    });
+
+    closeBtn.addEventListener('click', e => {
+        e.target.tagName === 'BUTTON' || e.target.tagName == 'STRONG' ?
+        modal.style.display = 'none' :
+        modal.style.display = 'block';
+    });
  }
 
  
+
+
+
