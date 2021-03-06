@@ -14,6 +14,36 @@ async function getEmployeeData(url) {
     displayModalConstants();
     document.querySelector('.modal-container').style.display = 'none';
     addClickHandler(gallery.children, employeesJSON.results);
+
+    /**
+     * EXCEEDS EXPECTATIONS REQUIREMENT
+     * Move from one employee to another in modal view
+     **/
+    const previousButton = document.querySelector('#modal-prev');
+    const nextButton = document.querySelector('#modal-next');
+
+    previousButton.addEventListener('click', () => {
+        let modalEmail = document.querySelector('.modal-name').nextElementSibling.textContent;
+        let modalEmployeeData = document.querySelector('.modal-info-container');
+
+        for (let i=0; i<gallery.children.length; i++) {
+            let cardEmail = gallery.children[i].lastElementChild.firstElementChild.nextElementSibling.textContent;
+            let previousEmployeeIndex = 0;
+            
+            
+            if (modalEmail === cardEmail) {
+                previousEmployeeIndex = i - 1;
+                console.log(previousEmployeeIndex);
+                modalEmployeeData.innerHTML = '';
+                previousEmployeeIndex >= 0 ? updateModal(employeesJSON.results[previousEmployeeIndex]) : undefined; 
+                previousEmployeeIndex == 0 ? previousButton.style.display = 'none' : undefined;
+                break;
+            } 
+        }
+    });
+    nextButton.addEventListener('click', () => {
+        console.log(`Let's go forward`);
+    });
 }
 
 getEmployeeData('https://randomuser.me/api/?results=12&nat=ca');
@@ -85,6 +115,8 @@ const generateEmployeeCards = data => {
             modal.style.display = 'none' :
             modal.style.display = 'block'
     })
+
+
  }
 
  
@@ -119,6 +151,7 @@ const updateModal = employee => {
 const addClickHandler = (array, data) => {
     const modal = document.querySelector('.modal-container');
     const modalInfo = document.querySelector('.modal-info-container');
+    const previousButton = document.querySelector('#modal-prev');
 
     for (let i = 0; i < array.length; i++) {
         array[i].addEventListener('click', e => {
@@ -127,6 +160,7 @@ const addClickHandler = (array, data) => {
                 modal.style.display = 'block' :
                 modal.style.display = 'none';
             updateModal(data[i]);
+            previousButton.style.display = 'inline-block';
         });
     }
 }
@@ -163,3 +197,9 @@ searchButton.addEventListener('click', () => {
             gallery.children[i].style.display = 'none'; 
     }
 });
+
+
+
+
+
+
