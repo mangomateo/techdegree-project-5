@@ -114,3 +114,15 @@ const addClickHandler = (array, data) => {
         });
     }
 }
+
+
+/**
+ * EXCEEDS EXPECTATIONS REQUIREMENT
+ * Appends search bar to HTML
+ **/
+let searchBarHTML = `<form action="#" method="get">
+<input type="search" id="search-input" class="search-input" placeholder="Search...">
+<input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+</form>`;
+
+document.querySelector('.search-container').insertAdjacentHTML('afterbegin', searchBarHTML);
