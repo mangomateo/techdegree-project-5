@@ -11,8 +11,9 @@ async function getEmployeeData(url) {
     console.log(employeesJSON.results[0]);
     generateEmployeeCards(employeesJSON.results);
     displayModalConstants();
-    // document.querySelector('.modal-container').style.display = 'none';
-    updateModal(employeesJSON.results[5]);
+    document.querySelector('.modal-container').style.display = 'none';
+    addClickHandler(gallery.children, employeesJSON.results);
+    // updateModal(employeesJSON.results[5]);
 }
 
 getEmployeeData('https://randomuser.me/api/?results=12&nat=ca');
@@ -94,4 +95,23 @@ const updateModal = employee => {
 
     const modalInfo = document.querySelector('.modal-info-container');
     modalInfo.insertAdjacentHTML('afterbegin', modalInfoHTML);
+}
+
+
+/**
+ * Add click handlers to each employee card
+ **/
+const addClickHandler = (array, data) => {
+    const modal = document.querySelector('.modal-container');
+    const modalInfo = document.querySelector('.modal-info-container');
+
+    for (let i = 0; i < array.length; i++) {
+        array[i].addEventListener('click', e => {
+            modalInfo.innerHTML = '';
+            e.target.className.includes('card') ?
+                modal.style.display = 'block' :
+                modal.style.display = 'none';
+            updateModal(data[i]);
+        });
+    }
 }
