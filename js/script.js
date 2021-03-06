@@ -33,16 +33,46 @@ async function getEmployeeData(url) {
             
             if (modalEmail === cardEmail) {
                 previousEmployeeIndex = i - 1;
-                console.log(previousEmployeeIndex);
                 modalEmployeeData.innerHTML = '';
-                previousEmployeeIndex >= 0 ? updateModal(employeesJSON.results[previousEmployeeIndex]) : undefined; 
-                previousEmployeeIndex == 0 ? previousButton.style.display = 'none' : undefined;
-                break;
+
+                if (previousEmployeeIndex >= 0) {
+                    updateModal(employeesJSON.results[previousEmployeeIndex]);
+                    nextButton.style.display = 'inline-block';
+                    previousButton.style.display = 'inline-block';
+                } else {
+                    updateModal(employeesJSON.results[i]);
+                    nextButton.style.display = 'inline-block';
+                    previousButton.style.display = 'none';
+                }
             } 
         }
     });
+
     nextButton.addEventListener('click', () => {
-        console.log(`Let's go forward`);
+        let modalEmail = document.querySelector('.modal-name').nextElementSibling.textContent;
+        let modalEmployeeData = document.querySelector('.modal-info-container');
+
+        for (let i=0; i<gallery.children.length; i++) {
+            let cardEmail = gallery.children[i].lastElementChild.firstElementChild.nextElementSibling.textContent;
+            let nextEmployeeIndex = 0;
+        
+            if (modalEmail === cardEmail) {
+                console.log(`we have a match at index ${i}`);
+                nextEmployeeIndex = i + 1;
+                console.log(employeesJSON.results[nextEmployeeIndex]);
+                modalEmployeeData.innerHTML = '';
+                
+                if (nextEmployeeIndex < gallery.children.length) {
+                    updateModal(employeesJSON.results[nextEmployeeIndex]);
+                    nextButton.style.display = 'inline-block';
+                    previousButton.style.display = 'inline-block';
+                } else {
+                    updateModal(employeesJSON.results[i]);
+                    nextButton.style.display = 'none';
+                    previousButton.style.display = 'inline-block';
+                } 
+            }
+        } 
     });
 }
 
