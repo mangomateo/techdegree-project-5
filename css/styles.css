@@ -16,7 +16,11 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    /* background: rgba(235, 235, 235, 0.9); */
+    
+    /* EXCEEDS EXPECATIONS REQUIREMENT
+        Custom Css */
+    background-image: url('https://background-tiles.com/overview/blue/patterns/large/1051.png');
 }
 
 header {
@@ -30,7 +34,11 @@ header {
 
 header h1 {
     font-size: 1.25em;
+    padding: 1em;
+    border: black 1px;
+    border-radius: 70%;
     color: rgba(50, 50, 50, 0.9);
+    background-color: gainsboro;
     margin-top: 35px;
 }
 
