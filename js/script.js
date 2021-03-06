@@ -63,6 +63,12 @@ const generateEmployeeCards = data => {
 
     const modal = document.querySelector('.modal-container');
     const closeBtn = document.querySelector('#modal-close-btn');
+
+    closeBtn.addEventListener('click', e => {
+        e.target.tagName === 'BUTTON' || e.target.tagName === 'STRONG' ?
+            modal.style.display = 'none' :
+            modal.style.display = 'block'
+    })
  }
 
  
@@ -73,14 +79,18 @@ const generateEmployeeCards = data => {
 const updateModal = employee => {
     let modalInfoHTML = `
         <img class="modal-img" src="${ employee.picture.large }" alt="profile picture">
-        <h3 id="name" class="modal-name cap">${ employee.name.first } ${ employee.name.last }</h3>
+        <h3 id="name" class="modal-name cap">${ employee.name.first } 
+                                             ${ employee.name.last }</h3>
         <p class="modal-text">${ employee.email }</p>
         <p class="modal-text cap">${ employee.location.city }</p>
         <hr>
-        <p class="modal-text">(${ employee.phone.slice(0, 3) }) ${ employee.phone.slice(4, 7) } - ${ employee.phone.slice(8, 12) }</p>
+        <p class="modal-text">(${ employee.phone.slice(0, 3) }) 
+                               ${ employee.phone.slice(4, 7) } - ${ employee.phone.slice(8, 12) }</p>
         <p class="modal-text">${ employee.location.street.number } ${ employee.location.street.name }, 
                               ${ employee.location.state } ${ employee.location.postcode }</p>
-        <p class="modal-text">Birthday: ${ employee.dob.date.slice(5, 7) }/${ employee.dob.date.slice(8, 10) }/${ employee.dob.date.slice(0, 4) }</p>`;
+        <p class="modal-text">Birthday: ${ employee.dob.date.slice(5, 7) } /
+                                        ${ employee.dob.date.slice(8, 10) } /
+                                        ${ employee.dob.date.slice(0, 4) }</p>`;
 
     const modalInfo = document.querySelector('.modal-info-container');
     modalInfo.insertAdjacentHTML('afterbegin', modalInfoHTML);
