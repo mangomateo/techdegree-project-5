@@ -160,7 +160,7 @@ const addClickHandler = (array, data) => {
                 modal.style.display = 'block' :
                 modal.style.display = 'none';
             updateModal(data[i]);
-            previousButton.style.display = 'inline-block';
+            i == 0 ? previousButton.style.display = 'none' : previousButton.style.display = 'inline-block';
         });
     }
 }
