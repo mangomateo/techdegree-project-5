@@ -18,6 +18,7 @@ async function getEmployeeData(url) {
     /**
      * EXCEEDS EXPECTATIONS REQUIREMENT
      * Move from one employee to another in modal view
+     * Show/Hide previous and next buttons when appropriate
      **/
     const previousButton = document.querySelector('#modal-prev');
     const nextButton = document.querySelector('#modal-next');
@@ -57,9 +58,7 @@ async function getEmployeeData(url) {
             let nextEmployeeIndex = 0;
         
             if (modalEmail === cardEmail) {
-                console.log(`we have a match at index ${i}`);
                 nextEmployeeIndex = i + 1;
-                console.log(employeesJSON.results[nextEmployeeIndex]);
                 modalEmployeeData.innerHTML = '';
                 
                 if (nextEmployeeIndex < gallery.children.length) {
