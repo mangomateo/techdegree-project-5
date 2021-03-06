@@ -3,17 +3,16 @@ const gallery = document.querySelector('#gallery');
 
 /**
  * Fetch random user data from API
+ * Create employee cards and modals using fetched data
  **/
 async function getEmployeeData(url) {
     const employees = await fetch(url);
     const employeesJSON = await employees.json();
 
-    console.log(employeesJSON.results[0]);
     generateEmployeeCards(employeesJSON.results);
     displayModalConstants();
     document.querySelector('.modal-container').style.display = 'none';
     addClickHandler(gallery.children, employeesJSON.results);
-    // updateModal(employeesJSON.results[5]);
 }
 
 getEmployeeData('https://randomuser.me/api/?results=12&nat=ca');
