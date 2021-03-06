@@ -136,7 +136,7 @@ const addClickHandler = (array, data) => {
 const searchBox = document.querySelector('#search-input');
 const searchButton = document.querySelector('#search-submit');
 
-searchButton.addEventListener('click', () => {
+searchBox.addEventListener('keyup', () => {
     let searchValue = searchBox.value.toLowerCase();
 
     for (let i=0; i<gallery.children.length; i++) {
@@ -148,18 +148,14 @@ searchButton.addEventListener('click', () => {
     }
 });
 
+searchButton.addEventListener('click', () => {
+    let searchValue = searchBox.value.toLowerCase();
 
-
-
-
-/**
- * get value of searchbox input
- * on click/keyup?
- *  loop over first and last names
- *  show matches
- *  hide non matches
- * end event
- * 
- * 
- * 
- */
+    for (let i=0; i<gallery.children.length; i++) {
+        let fullName = gallery.children[i].lastElementChild.firstElementChild.textContent;
+        
+        fullName.toLowerCase().includes(searchValue) ?
+            gallery.children[i].style.display = 'flex' :
+            gallery.children[i].style.display = 'none'; 
+    }
+});
