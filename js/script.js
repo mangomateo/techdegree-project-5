@@ -1,4 +1,5 @@
 const gallery = document.querySelector('#gallery');
+const searchContainer = document.querySelector('.search-container');
 
 
 /**
@@ -17,6 +18,17 @@ async function getEmployeeData(url) {
 
 getEmployeeData('https://randomuser.me/api/?results=12&nat=ca');
 
+
+/**
+ * EXCEEDS EXPECTATIONS REQUIREMENT
+ * Appends search bar to HTML
+ **/
+ const searchBarHTML = `<form action="#" method="get">
+ <input type="search" id="search-input" class="search-input" placeholder="Search...">
+ <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+ </form>`;
+ 
+ searchContainer.insertAdjacentHTML('afterbegin', searchBarHTML);
 
 
 /**
@@ -116,13 +128,38 @@ const addClickHandler = (array, data) => {
 }
 
 
+
 /**
  * EXCEEDS EXPECTATIONS REQUIREMENT
- * Appends search bar to HTML
+ * Search employee directory by first or last name
  **/
-let searchBarHTML = `<form action="#" method="get">
-<input type="search" id="search-input" class="search-input" placeholder="Search...">
-<input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
-</form>`;
+const searchBox = document.querySelector('#search-input');
+const searchButton = document.querySelector('#search-submit');
 
-document.querySelector('.search-container').insertAdjacentHTML('afterbegin', searchBarHTML);
+searchButton.addEventListener('click', () => {
+    let searchValue = searchBox.value.toLowerCase();
+
+    for (let i=0; i<gallery.children.length; i++) {
+        let fullName = gallery.children[i].lastElementChild.firstElementChild.textContent;
+        
+        fullName.toLowerCase().includes(searchValue) ?
+            gallery.children[i].style.display = 'flex' :
+            gallery.children[i].style.display = 'none'; 
+    }
+});
+
+
+
+
+
+/**
+ * get value of searchbox input
+ * on click/keyup?
+ *  loop over first and last names
+ *  show matches
+ *  hide non matches
+ * end event
+ * 
+ * 
+ * 
+ */
